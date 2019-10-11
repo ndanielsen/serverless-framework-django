@@ -1,3 +1,12 @@
+# Fully Fledged Django + Serverless + Aurora Serverless
+
+
+
+
+
+
+
+### Past Work that was Forked
 
 # Django + Serverless framework a match made in heaven
 

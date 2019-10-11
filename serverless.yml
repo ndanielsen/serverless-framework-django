@@ -132,6 +132,13 @@ resources:
         Family: aurora-postgresql10
         Parameters:
           application_name: 'test'
+    AuroraRDSInstanceParameter:
+      Type: AWS::RDS::DBParameterGroup
+      Properties:
+        Description: Parameter group for the Serverless Aurora RDS DB.
+        Family: aurora-postgresql10
+        Parameters:
+          application_name: 'test'
     AuroraRDSCluster:
       Type: "AWS::RDS::DBCluster"
       Properties:
@@ -141,15 +148,28 @@ resources:
           Ref: AuroraSubnetGroup
         Engine: aurora-postgresql
         EngineVersion: "10.7"
-        EngineMode: serverless
-        ScalingConfiguration:
-          AutoPause: true
-          MaxCapacity: 16
-          MinCapacity: 2
-          SecondsUntilAutoPause: 300
+        # EngineMode: serverless
+        # ScalingConfiguration:
+        #   AutoPause: true
+        #   MaxCapacity: 16
+        #   MinCapacity: 2
+        #   SecondsUntilAutoPause: 300
         DatabaseName: ${self:custom.AURORA.DB_NAME}
         BackupRetentionPeriod: 3
         DBClusterParameterGroupName:
           Ref: AuroraRDSClusterParameter
         VpcSecurityGroupIds:
           - Fn::GetAtt: ServerlessVPC.DefaultSecurityGroup
+    AuroraRDSInstance:
+      Type: "AWS::RDS::DBInstance"
+      Properties:
+        DBInstanceClass: db.t3.medium
+        DBSubnetGroupName:
+          Ref: AuroraSubnetGroup
+        Engine: aurora-postgresql
+        EngineVersion: "10.7"
+        PubliclyAccessible: false
+        DBParameterGroupName:
+          Ref: AuroraRDSInstanceParameter
+        DBClusterIdentifier:
+          Ref: AuroraRDSCluster

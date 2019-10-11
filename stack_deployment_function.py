@@ -20,4 +20,5 @@ def handler(event, context):
             )
         raise
     execute_from_command_line(['manage.py', 'migrate'])
-    execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
+    # execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
+    print('finished')
