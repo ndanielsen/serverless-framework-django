@@ -1,6 +1,6 @@
 boto3==1.7.58
 botocore==1.10.58
-Django==2.0.7
+Django==2.2.24
 djangorestframework==3.8.2
 docutils==0.14
 jmespath==0.9.3
